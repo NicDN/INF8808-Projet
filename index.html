@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parkinson Visualizations</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0f172a;
+      --card: #111827;
+      --muted: #94a3b8;
+      --text: #e5e7eb;
+      --accent: #60a5fa;
+      --accent-hover: #3b82f6;
+      --border: #334155;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    p {
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .card h2 {
+      margin: 0 0 8px 0;
+      font-size: 1.1rem;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 12px;
+      text-decoration: none;
+      background: var(--accent);
+      color: white;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      background: var(--accent-hover);
+    }
+
+    footer {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Parkinson Dataset – Team Visualizations</h1>
+    <p>
+      Welcome to our project website. Choose a visualization below.
+    </p>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Interactive Heatmap</h2>
+        <p>Explore relationships in the Parkinson dataset through an interactive heatmap.</p>
+        <a class="btn" href="visualizations/heatmap_interactive_beta_plotly.html">Open heatmap</a>
+      </article>
+
+      <article class="card">
+        <h2>Dominant Side Proportion Story</h2>
+        <p>Narrative visualization focused on dominant side proportion in the dataset.</p>
+        <a class="btn" href="visualizations/story_dominant_side_proportion_plotly.html">Open story</a>
+      </article>
+    </section>
+
+    <footer>
+      INF8808 – Team project
+    </footer>
+  </main>
+</body>
+</html>
