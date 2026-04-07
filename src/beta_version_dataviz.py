@@ -16,9 +16,6 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.io as pio
 from plotly.colors import sample_colorscale
-from plotly.subplots import make_subplots
-
-
 THEME = {
     "background_color": "#ffffff",
     "font_family": "Inter, 'Segoe UI', system-ui, -apple-system, sans-serif",
@@ -41,8 +38,8 @@ DISPLAY = {
     "healthy": "Healthy",
     "age_at_diagnosis": "Age At Diagnosis",
     "age": "Age",
-    "height": "Height",
-    "weight": "Weight",
+    "height": "Height (cm)",
+    "weight": "Weight (kg)",
     "count": "Nombre De Patients",
 }
 
@@ -242,48 +239,40 @@ def write_heatmap_html(out_dir: Path, df: pd.DataFrame) -> Path:
     ]
     traces[0].visible = True
 
-    # Two rows: top strip = title + controls only; bottom = heatmap (no overlap).
-    fig = make_subplots(
-        rows=2,
-        cols=1,
-        row_heights=[0.22, 0.78],
-        vertical_spacing=0.04,
-        specs=[[{"type": "xy"}], [{"type": "xy"}]],
-    )
-
-    fig.add_trace(
-        go.Scatter(x=[0, 1], y=[0, 1], mode="none", showlegend=False, hoverinfo="skip"),
-        row=1,
-        col=1,
-    )
-    fig.update_xaxes(visible=False, range=[0, 1], row=1, col=1)
-    fig.update_yaxes(visible=False, range=[0, 1], row=1, col=1)
-
+    fig = go.Figure()
     for t in traces:
-        fig.add_trace(t, row=2, col=1)
+        fig.add_trace(t)
 
     fig.update_layout(
         template="plotly_white+custom_theme",
         dragmode=False,
-        height=640,
+        height=690,
         title=dict(text=""),
-        margin=dict(l=72, r=48, t=28, b=72),
+        margin=dict(l=72, r=96, t=150, b=72),
+        xaxis=dict(
+            title=DISPLAY["age_at_diagnosis"],
+            domain=[0.05, 1.0],
+        ),
+        yaxis=dict(
+            title=DISPLAY["height"],
+            domain=[0.02, 0.80],
+        ),
         coloraxis=dict(
             colorscale=THEME["colorscale"],
             colorbar=dict(
                 title=dict(text=DISPLAY["count"], font=dict(family=THEME["font_family"], size=THEME["label_font_size"])),
                 tickfont=dict(family=THEME["font_family"], color=THEME["dark_color"]),
+                x=1.02,
+                xanchor="left",
+                len=0.5,
             ),
         ),
-        xaxis2=dict(title=DISPLAY["age_at_diagnosis"]),
-        yaxis2=dict(title=DISPLAY["height"]),
         updatemenus=[
             dict(
                 type="dropdown",
                 direction="down",
                 x=0.02,
-                # Figure coords (0=bottom, 1=top): place below "Choisir la vue" so label + menu don't overlap.
-                y=0.852,
+                y=0.885,
                 xanchor="left",
                 yanchor="top",
                 showactive=True,
@@ -292,50 +281,50 @@ def write_heatmap_html(out_dir: Path, df: pd.DataFrame) -> Path:
                 bordercolor=THEME["dark_color"],
                 buttons=[
                     dict(
-                        label="Parkinson - Height",
+                        label="Parkinson - Height (cm)",
                         method="update",
                         args=[
                             {"visible": [True, False, False, False]},
                             {
                                 "annotations[0].text": build_title("parkinson", "height"),
-                                "xaxis2.title.text": DISPLAY["age_at_diagnosis"],
-                                "yaxis2.title.text": DISPLAY["height"],
+                                "xaxis.title.text": DISPLAY["age_at_diagnosis"],
+                                "yaxis.title.text": DISPLAY["height"],
                             },
                         ],
                     ),
                     dict(
-                        label="Parkinson - Weight",
+                        label="Parkinson - Weight (kg)",
                         method="update",
                         args=[
                             {"visible": [False, True, False, False]},
                             {
                                 "annotations[0].text": build_title("parkinson", "weight"),
-                                "xaxis2.title.text": DISPLAY["age_at_diagnosis"],
-                                "yaxis2.title.text": DISPLAY["weight"],
+                                "xaxis.title.text": DISPLAY["age_at_diagnosis"],
+                                "yaxis.title.text": DISPLAY["weight"],
                             },
                         ],
                     ),
                     dict(
-                        label="Healthy - Height",
+                        label="Healthy - Height (cm)",
                         method="update",
                         args=[
                             {"visible": [False, False, True, False]},
                             {
                                 "annotations[0].text": build_title("healthy", "height"),
-                                "xaxis2.title.text": DISPLAY["age"],
-                                "yaxis2.title.text": DISPLAY["height"],
+                                "xaxis.title.text": DISPLAY["age"],
+                                "yaxis.title.text": DISPLAY["height"],
                             },
                         ],
                     ),
                     dict(
-                        label="Healthy - Weight",
+                        label="Healthy - Weight (kg)",
                         method="update",
                         args=[
                             {"visible": [False, False, False, True]},
                             {
                                 "annotations[0].text": build_title("healthy", "weight"),
-                                "xaxis2.title.text": DISPLAY["age"],
-                                "yaxis2.title.text": DISPLAY["weight"],
+                                "xaxis.title.text": DISPLAY["age"],
+                                "yaxis.title.text": DISPLAY["weight"],
                             },
                         ],
                     ),
@@ -346,8 +335,10 @@ def write_heatmap_html(out_dir: Path, df: pd.DataFrame) -> Path:
 
     fig.add_annotation(
         text=build_title("parkinson", "height"),
+        xref="paper",
+        yref="paper",
         x=0.5,
-        y=0.92,
+        y=0.99,
         xanchor="center",
         yanchor="top",
         showarrow=False,
@@ -356,19 +347,17 @@ def write_heatmap_html(out_dir: Path, df: pd.DataFrame) -> Path:
             size=THEME["title_font_size"],
             color=THEME["dark_color"],
         ),
-        row=1,
-        col=1,
     )
     fig.add_annotation(
         text="Choisir la vue",
+        xref="paper",
+        yref="paper",
         x=0.02,
-        y=0.44,
+        y=0.885,
         xanchor="left",
         yanchor="bottom",
         showarrow=False,
         font=dict(family=THEME["font_family"], size=THEME["label_font_size"], color=THEME["dark_color"]),
-        row=1,
-        col=1,
     )
 
     out_path = out_dir / "heatmap_interactive_beta_plotly.html"
