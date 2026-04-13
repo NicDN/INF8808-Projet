@@ -19,8 +19,8 @@ tasks = df_pk['task'].unique().tolist()
 
 # ── Apparence ──────────────────────────────────────────────────────────────────
 COLORS = {
-    "male":   "#2166AC",
-    "female": "#D6604D"
+    "male":   "#2197AC",
+    "female": "#D64D94"
 }
 MARKER_STYLE = dict(size=7, opacity=0.75, line=dict(width=0.6, color="white"))
 
