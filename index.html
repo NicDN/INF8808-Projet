@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Parkinson Visualizations</title>
+  <title>INF8808 - Caractérisation démographique et symptômatique des patients atteints de la maladie de Parkinson</title>
   <style>
     :root {
-      color-scheme: light dark;
       --bg: #0f172a;
       --card: #111827;
       --muted: #94a3b8;
       --text: #e5e7eb;
       --accent: #60a5fa;
-      --accent-hover: #3b82f6;
       --border: #334155;
     }
+
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -24,92 +24,154 @@
       line-height: 1.5;
     }
 
-    .container {
-      max-width: 1000px;
+    header {
+      padding: 48px 32px 24px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 24px;
+      border-bottom: 1px solid var(--border);
     }
 
-    h1 {
-      margin-top: 0;
+    header h1 {
+      margin: 0 0 8px 0;
       font-size: 2rem;
+      color: var(--text);
     }
 
-    p {
+    header p {
+      margin: 0;
       color: var(--muted);
+      font-size: 1rem;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin-top: 20px;
+    .viz-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 32px;
+      border-bottom: 1px solid var(--border);
     }
 
-    .card {
-      background: var(--card);
+    .viz-section.wide {
+      max-width: 1480px;
+    }
+
+    .viz-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .viz-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin: 0 0 6px 0;
+    }
+
+    .viz-section h2 {
+      margin: 0 0 8px 0;
+      font-size: 1.4rem;
+      color: var(--text);
+    }
+
+    .viz-section p {
+      margin: 0 0 20px 0;
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      max-width: 860px;
+    }
+
+    .iframe-wrap {
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 16px;
+      overflow: hidden;
+      background: #fff;
     }
-
-    .card h2 {
-      margin: 0 0 8px 0;
-      font-size: 1.1rem;
+    
+    .iframe-wrap iframe {
+      display: block;
+      width: 100%;
+      border: none;
     }
-
-    .btn {
-      display: inline-block;
-      margin-top: 12px;
-      text-decoration: none;
-      background: var(--accent);
-      color: white;
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-weight: 600;
-    }
-
-    .btn:hover {
-      background: var(--accent-hover);
-    }
-
+    
     footer {
-      margin-top: 28px;
+      text-align: center;
+      padding: 32px;
       color: var(--muted);
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
-  </style>
+    </style>
 </head>
 <body>
-  <main class="container">
-    <h1>Parkinson Dataset – Team Visualizations</h1>
-    <p>
-      Welcome to our project website. Choose a visualization below.
-    </p>
-
-    <section class="grid">
-      <article class="card">
-        <h2>Interactive Heatmap</h2>
-        <p>Explore relationships in the Parkinson dataset through an interactive heatmap.</p>
-        <a class="btn" href="visualizations/heatmap_interactive_beta_plotly.html">Open heatmap</a>
-      </article>
-
-      <article class="card">
-        <h2>Dominant Side Proportion Story</h2>
-        <p>Narrative visualization focused on dominant side proportion in the dataset.</p>
-        <a class="btn" href="visualizations/story_dominant_side_proportion_plotly.html">Open story</a>
-      </article>
-    </section>
-
-    <footer>
-      INF8808 – Team project
-    </footer>
-  </main>
-
   
-<!-- test-Dalya -->
+  <header>
+    <h1>INF8808 - Caractérisation démographique et symptômatique des patients atteints de la maladie de Parkinson</h1>
+  </header>
+  
+  <section class="viz-section">
+    <p class="viz-label">Visualisation 1</p>
+    <h2>Carte thermique</h2>
+    <p>Cette carte thermique permet de voir quelles sont les valeurs moyennes de taille et de poids de la plupart des patients à l'âge où leur diagnostic a été posé, et vérifier si certaines tranches d'âge ont tendance à être associées à une composition corporelle particulière.</p>
+    <p>Il n'y a pas de preuve visuelle solide indiquant que les patients plus grands ou plus lourds soient diagnostiqués à un âge systématiquement différent ; la zone à haute densité ressemble davantage à un «bloc» qu'à une pente claire. En d'autres termes, au sein du groupe Parkinson, l'âge_au_diagnostic semble largement indépendant de la taille et du poids.
+    </p>
+    <div class="iframe-wrap">
+      <iframe src="visualizations/heatmap_interactive_beta_plotly.html" height="700"></iframe>
+    </div>
+  </section>
+  
+  <section class="viz-section">
+    <p class="viz-label">Visualisation 2</p>
+    <h2>Diagramme circulaire</h2>
+    <p>Ce diagramme circulaire montre la proportion de patients présentant des tremblements plus marqués du côté dominant par rapport au côté non dominant</p>
+    <div class="iframe-wrap">
+      <iframe src="visualizations/story_dominant_side_proportion_plotly.html" height="750"></iframe>
+    </div>
+  </section>
+
+  <section class="viz-section">
+    <p class="viz-label">Visualisation 3</p>
+    <h2>Diagramme de Sankey</h2>
+    <p>Le diagramme de Sankey illustre la distribution de 355 patients de l'ensemble de données à travers quatre caractéristiques enchaînées : le genre, le diagnostic (Parkinson’s ou en healty), la présence de la maladie dans la famille proche (appearance in kinship), et plus spécifiquement dans la famille au premier degré (appearance in first grade kinship). L'épaisseur de chaque flux est proportionnelle au nombre de patients empruntant ce chemin. Les pourcentages affichés sur chaque lien indiquent la fraction des patients du nœud source qui transitent vers le nœud cible.
+</p>
+    <div class="iframe-wrap">
+      <iframe src="visualizations/pads_sankey_gender_condition_kinship.html" height="750" title="PADS Sankey"></iframe>
+    </div>
+  </section>
+  
+  <section class="viz-section">
+    <p class="viz-label">Visualisation 4</p>
+    <h2>Buage de points distribué (Beeswarm)</h2>
+    <p>Le graphique permet de comparer l’intensité relative des tremblements entre les patients Parkinsoniens et les sujets sains pour chacune des 11 tâches motrices étudiées. Pour chaque tâche, une analyse fréquentielle du signal permet de mesurer la proportion du mouvement total correspondant à des oscillations dans la bande de fréquence typique du tremblement Parkinsonien (environ 3 à 7 Hz).</p>
+    <p>Les patients atteints de Parkinson présentent généralement des valeurs de tremblement plus élevées que les sujets contrôles dans plusieurs tâches motrices. De plus, la distribution des points montre que les patients Parkinsoniens présentent une variabilité importante des tremblements, ce qui suggère que la sévérité des symptômes moteurs peut varier considérablement selon les individus et selon la tâche réalisée.
+</p>
+    <p>On observe également que les points correspondant aux patients Parkinsoniens présentent généralement une plus grande dispersion que ceux des sujets contrôles, qui restent majoritairement concentrés dans les faibles valeurs. Cette tendance est particulièrement visible pour certaines tâches comme RelaxedTask, où les patients doivent rester immobiles tout en effectuant une tâche cognitive, une situation connue pour accentuer le tremblement de repos caractéristique de la maladie.</p>
+    <div class="iframe-wrap">
+      <iframe src="visualizations/beeswarm_parkinson.html" height="960" title="Beeswarm Parkinson"></iframe>
+    </div>
+  </section>
+  
+
+  <section class="viz-section">
+    <p class="viz-label">Visualisation 5</p>
+    <h2>Scatter plots</h2>
+    <p>Cette visualisation permet d’analyser la relation entre l’âge et le genre des participants et la puissance du tremblement mesurée à partir des signaux d’accélération pour différentes tâches motrices.</p>
+    <p>On observe que les valeurs extrêmes apparaissent plus fréquemment chez les patients plus âgés, ce qui pourrait suggérer une tendance à l’augmentation de la sévérité des symptômes moteurs avec l’âge, bien qu’une forte variabilité interindividuelle reste présente.</p>
+    <div class="iframe-wrap">
+      <iframe src="visualizations/taux_tremblement_small_multiples.html" height="1020" title="Tremor Rate Small Multiples"></iframe>
+    </div>
+  </section>
+
+  <section class="viz-section wide">
+    <p class="viz-label">Visualisation 6</p>
+    <h2>Upset Plot</h2>
+    <p>Cette visualisation permet de représenter les combinaisons de symptômes non-moteurs les plus fréquentes chez les patients atteints de la maladie de Parkinson dans le dataset. 
+</p>
+    <p>On observe que les symptômes urinaires (Nocturia/Urgency) reviennent très souvent dans les combinaisons les plus fréquentes. À l’inverse, les combinaisons incluant un plus grand nombre de symptômes ou des symptômes moins communs présentent des fréquences plus faibles, mais restent tout de même présentes chez une proportion non négligeable de patients. Globalement, la tendance montre que les symptômes non-moteurs tendent à se regrouper en clusters relativement stables. 
+</p>
+    <div class="iframe-wrap">
+      <iframe src="visualizations/upset_plot.html" height="880" title="Upset Plot"></iframe>
+    </div>
+  </section>
 
 </body>
 </html>
-
-
