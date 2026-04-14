@@ -151,7 +151,7 @@
   </section>
   <section class="viz-section">
     <p class="viz-label">Visualisation 5</p>
-    <h2>Prévalence des Symptômes Non-Moteurs par Catégorie</h2>
+    <h2>bar chart</h2>
     <p>
       Ce graphique présente la moyenne de prévalence des symptômes non-moteurs regroupés par catégories cliniques. 
       On observe que la catégorie <strong>Urinary</strong> est la seule à franchir le seuil critique de 50%, 
@@ -161,9 +161,22 @@
       <iframe src="visualizations/analyse_categories_interactif.html" height="720" title="Prévalence catégories"></iframe>
     </div>
   </section>
-
   <section class="viz-section">
     <p class="viz-label">Visualisation 6</p>
+    <h2>bar chart</h2>
+    <p> cette visualisation représente la structure hiérarchique des symptômes non-moteurs associés à la maladie de Parkinson,
+      tels qu’ils sont définis dans le questionnaire du dataset. Chaque barre représente un symptôme spécifique associé à chaque catégorie, 
+      par exemple : Constipation, Dribbling, Parasomnia ou Swelling. La longueur de la barre encode sa prévalence au sein de la population.
+      Les symptômes sont organisés sur l’axe vertical et triés selon leur fréquence. Les fréquences des grandes catégories de symptômes
+      (Gastrointestinal, Urinal, Sleep, Cognition, Cardiovascular, Miscellaneous, Sexual function, Distortion of perception et Depression / anxiety)
+      sont encodées par la couleur des barres. Les teintes pâles représentent la catégorie de  symptômes la plus fréquente  et inversement. 
+    </p>
+    <div class="iframe-wrap">
+      <iframe src="visualizations/analyse_symptomes_final.html" height="720" title="Prévalence catégories"></iframe>
+    </div>
+  </section>
+  <section class="viz-section">
+    <p class="viz-label">Visualisation 7</p>
     <h2>Scatter plots</h2>
     <p>Cette visualisation permet d’analyser la relation entre l’âge et le genre des participants et la puissance du tremblement mesurée à partir des signaux d’accélération pour différentes tâches motrices.</p>
     <p>On observe que les valeurs extrêmes apparaissent plus fréquemment chez les patients plus âgés, ce qui pourrait suggérer une tendance à l’augmentation de la sévérité des symptômes moteurs avec l’âge, bien qu’une forte variabilité interindividuelle reste présente.</p>
@@ -173,7 +186,7 @@
   </section>
 
   <section class="viz-section wide">
-    <p class="viz-label">Visualisation 7</p>
+    <p class="viz-label">Visualisation 8</p>
     <h2>Upset Plot</h2>
     <p>Cette visualisation permet de représenter les combinaisons de symptômes non-moteurs les plus fréquentes chez les patients atteints de la maladie de Parkinson dans le dataset. 
 </p>
