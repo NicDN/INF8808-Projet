@@ -153,9 +153,13 @@
     <p class="viz-label">PRÉVALENCE DES SYMPTÔMES NON-MOTEURS PAR CATÉGORIE CLINIQUE</p>
     <h2>Bar chart</h2>
     <p>
-      Ce graphique présente la moyenne de prévalence des symptômes non-moteurs regroupés par catégories cliniques. 
-      On observe que la catégorie <strong>Urinary</strong> est la seule à franchir le seuil critique de 50%, 
-      soulignant son impact prédominant chez les patients parkinsoniens de cette étude.
+      Cette visualisation permet d'analyser la répartition globale des troubles non-moteurs en regroupant
+      les symptômes par familles cliniques. On observe une tendance générale où la majorité des catégories se maintient
+      sous la barre des 40%, à l'exception notable de la sphère Urinaire.
+      Cette dernière s'impose comme un outlier statistique majeur avec une prévalence de 69,2%, 
+      soit le point culminant de l'étude et la seule catégorie à franchir le seuil critique de 50%. À l'autre extrémité du spectre, 
+      les douleurs somatiques représentent la valeur minimale (21,3%), soulignant que l'impact de la maladie reste
+      très hétérogène selon les systèmes biologiques touchés.
     </p>
     <div class="iframe-wrap">
       <iframe src="visualizations/analyse_categories_interactif.html" height="720" title="Prévalence catégories"></iframe>
@@ -164,12 +168,12 @@
   <section class="viz-section">
     <p class="viz-label">HIÉRARCHIE ET FRÉQUENCE DES SYMPTÔMES SPÉCIFIQUES</p>
     <h2>Bar chart</h2>
-    <p> cette visualisation représente la structure hiérarchique des symptômes non-moteurs associés à la maladie de Parkinson,
-      tels qu’ils sont définis dans le questionnaire du dataset. Chaque barre représente un symptôme spécifique associé à chaque catégorie, 
-      par exemple : Constipation, Dribbling, Parasomnia ou Swelling. La longueur de la barre encode sa prévalence au sein de la population.
-      Les symptômes sont organisés sur l’axe vertical et triés selon leur fréquence. Les fréquences des grandes catégories de symptômes
-      (Gastrointestinal, Urinal, Sleep, Cognition, Cardiovascular, Miscellaneous, Sexual function, Distortion of perception et Depression / anxiety)
-      sont encodées par la couleur des barres. Les teintes pâles représentent la catégorie de  symptômes la plus fréquente  et inversement. 
+    <p>
+      Ce graphique détaille la structure hiérarchique des symptômes en les classant par ordre décroissant de fréquence. 
+      La tendance met en lumière une prédominance écrasante des troubles liés à l'élimination et au sommeil, avec l'Urgence urinaire et 
+      la Nocturie qui atteignent des valeurs maximales proches de 70%. À l'inverse, l'Incontinence fécale constitue la valeur minimale à seulement 5,2%, 
+      illustrant un contraste marqué entre les défis quotidiens quasi systématiques et les symptômes plus marginaux. Cette hiérarchie révèle des disparités
+      importantes,  où les manifestations psychiatriques comme les délires restent des cas isolés par rapport à l'omniprésence des troubles fonctionnels.
     </p>
     <div class="iframe-wrap">
       <iframe src="visualizations/analyse_symptomes_final.html" height="960" title="analyse symptome"></iframe>
