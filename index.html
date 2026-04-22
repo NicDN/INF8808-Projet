@@ -149,10 +149,38 @@
       <iframe src="visualizations/beeswarm_parkinson.html" height="960" title="Beeswarm Parkinson"></iframe>
     </div>
   </section>
-  
-
   <section class="viz-section">
-    <p class="viz-label">Visualisation 5</p>
+    <p class="viz-label">PRÉVALENCE DES SYMPTÔMES NON-MOTEURS PAR CATÉGORIE CLINIQUE</p>
+    <h2>Bar chart</h2>
+    <p>
+      Cette visualisation permet d'analyser la répartition globale des troubles non-moteurs en regroupant
+      les symptômes par familles cliniques. On observe une tendance générale où la majorité des catégories se maintient
+      sous la barre des 40%, à l'exception notable de la sphère Urinaire.
+      Cette dernière s'impose comme un outlier statistique majeur avec une prévalence de 69,2%, 
+      soit le point culminant de l'étude et la seule catégorie à franchir le seuil critique de 50%. À l'autre extrémité du spectre, 
+      les douleurs somatiques représentent la valeur minimale (21,3%), soulignant que l'impact de la maladie reste
+      très hétérogène selon les systèmes biologiques touchés.
+    </p>
+    <div class="iframe-wrap">
+      <iframe src="visualizations/analyse_categories_interactif.html" height="720" title="Prévalence catégories"></iframe>
+    </div>
+  </section>
+  <section class="viz-section">
+    <p class="viz-label">HIÉRARCHIE ET FRÉQUENCE DES SYMPTÔMES SPÉCIFIQUES</p>
+    <h2>Bar chart</h2>
+    <p>
+      Ce graphique détaille la structure hiérarchique des symptômes en les classant par ordre décroissant de fréquence. 
+      La tendance met en lumière une prédominance écrasante des troubles liés à l'élimination et au sommeil, avec l'Urgence urinaire et 
+      la Nocturie qui atteignent des valeurs maximales proches de 70%.<br/> À l'inverse, l'Incontinence fécale constitue la valeur minimale à seulement 5,2%, 
+      illustrant un contraste marqué entre les défis quotidiens quasi systématiques et les symptômes plus marginaux. Cette hiérarchie révèle des disparités
+      importantes,  où les manifestations psychiatriques comme les délires restent des cas isolés par rapport à l'omniprésence des troubles fonctionnels.
+    </p>
+    <div class="iframe-wrap">
+      <iframe src="visualizations/analyse_symptomes_final.html" height="960" title="analyse symptome"></iframe>
+    </div>
+  </section>
+  <section class="viz-section">
+    <p class="viz-label">Visualisation 7</p>
     <h2>Scatter plots</h2>
     <p>Cette visualisation permet d’analyser la relation entre l’âge et le genre des participants et la puissance du tremblement mesurée à partir des signaux d’accélération pour différentes tâches motrices.</p>
     <p>On observe que les valeurs extrêmes apparaissent plus fréquemment chez les patients plus âgés, ce qui pourrait suggérer une tendance à l’augmentation de la sévérité des symptômes moteurs avec l’âge, bien qu’une forte variabilité interindividuelle reste présente.</p>
@@ -162,7 +190,7 @@
   </section>
 
   <section class="viz-section wide">
-    <p class="viz-label">Visualisation 6</p>
+    <p class="viz-label">Visualisation 8</p>
     <h2>Upset Plot</h2>
     <p>Cette visualisation permet de représenter les combinaisons de symptômes non-moteurs les plus fréquentes chez les patients atteints de la maladie de Parkinson dans le dataset. 
 </p>

@@ -2,19 +2,30 @@ import pandas as pd
 import plotly.graph_objects as go
 import os
 
+# --- Configuration du Thème  ---
+THEME = {
+    'font_family': "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+    'title_color': '#1A202C',
+    'text_color': '#4A5568',
+    'grid_color': '#E2E8F0',
+    'background_color': '#FFFFFF',
+    'bar_color': '#48BB78',        # Ton vert menthe original
+    'label_background_color': '#F0FFF4'
+}
+
 # --- Setup des dossiers ---
 base_path = r'C:\Users\Soumeya\Desktop\data viz'
 csv_path = os.path.join(base_path, 'visualizations', 'patients_symptoms.csv')
 html_output = os.path.join(base_path, 'visualizations', 'analyse_symptomes_final.html')
 
-# Chargement des données et petit clean sur les noms de colonnes
+# Chargement des données
 df = pd.read_csv(csv_path)
 df.columns = df.columns.str.strip().str.replace('"', '')
 
-# On filtre pour ne garder que les cas de Parkinson
+# Filtrage Parkinson
 df_parkinson = df[df['condition'].str.contains('Parkinson', case=False)].copy()
 
-# Dico pour faire le lien entre les colonnes et les noms propres
+# Dico de correspondance
 detailed_info = {
     'dribbling': 'Dribbling', 'swallowing': 'Swallowing', 'vomiting': 'Vomiting',
     'constipation': 'Constipation', 'bowel_incontinence': 'Bowel Incontinence',
@@ -30,7 +41,6 @@ detailed_info = {
     'acting_out_dreams': 'Acting Out Dreams', 'restless_legs': 'Restless Legs'
 }
 
-# Liste des symptômes par catégorie pour la boucle
 sub_symptoms = {
     'Gastrointestinal': ['dribbling', 'swallowing', 'vomiting', 'constipation', 'bowel_incontinence', 'bowel_emptying_incomplete'],
     'Urinary': ['urgency', 'nocturia'],
@@ -44,15 +54,12 @@ sub_symptoms = {
     'Sleep / Fatigue': ['daytime_sleepiness', 'insomnia', 'intense_vivid_dreams', 'acting_out_dreams', 'restless_legs']
 }
 
-# Calcul des stats et préparation des tooltips (hover)
+# Calcul des stats
 sub_data = []
 for category, symptoms in sub_symptoms.items():
     for symptom in symptoms:
         if symptom in df_parkinson.columns:
-            # Pourcentage global
             percent = df_parkinson[symptom].mean() * 100
-            
-            # Calcul de la répartition Homme/Femme pour ceux qui ont le symptôme
             pts_with_symptom = df_parkinson[df_parkinson[symptom] == 1]
             total_with_symptom = len(pts_with_symptom)
             
@@ -64,16 +71,15 @@ for category, symptoms in sub_symptoms.items():
             else:
                 p_hommes, p_femmes = 0.0, 0.0
 
-            # Texte personnalisé pour le survol de la souris
             hover_text = (
-                f"<span style='font-size:15px; font-weight:bold; color:#276749;'>"
+                f"<span style='font-family:{THEME['font_family']}; font-size:15px; font-weight:bold; color:#276749;'>"
                 f"{detailed_info.get(symptom, symptom).upper()}</span><br>"
-                f"<span style='color:#718096;'>Catégorie : {category}</span><br><br>"
-                f"<b>Fréquence :</b> {percent:.1f}%<br>"
+                f"<span style='font-family:{THEME['font_family']}; color:#718096;'>Catégorie : {category}</span><br><br>"
+                f"<span style='font-family:{THEME['font_family']};'><b>Fréquence :</b> {percent:.1f}%<br>"
                 f"<span style='font-size:11px; color:#A0AEC0;'>({total_with_symptom}/{len(df_parkinson)} patients)</span><br><br>"
                 f"<b>Genre :</b><br>"
                 f" <span style='color:#3182CE;'>• Hommes : {p_hommes:.1f}%</span><br>"
-                f" <span style='color:#E53E3E;'>• Femmes : {p_femmes:.1f}%</span>"
+                f" <span style='color:#E53E3E;'>• Femmes : {p_femmes:.1f}%</span></span>"
             )
 
             sub_data.append({
@@ -82,55 +88,49 @@ for category, symptoms in sub_symptoms.items():
                 'Hover': hover_text
             })
 
-# Tri pour avoir les plus fréquents en haut
 sub_df = pd.DataFrame(sub_data).sort_values('Pourcentage', ascending=True)
 
-# Création du bar chart horizontal avec Plotly
+# Création du graphique
 fig = go.Figure()
 
 fig.add_trace(go.Bar(
     y=sub_df['Nom'],
     x=sub_df['Pourcentage'],
     orientation='h',
-    marker=dict(color='#48BB78', line=dict(color='#FFFFFF', width=1.5)), # Vert menthe
+    marker=dict(color=THEME['bar_color'], line=dict(color='#FFFFFF', width=1.5)),
     hovertext=sub_df['Hover'],
     hoverinfo='text',
     text=[f"<b>{v:.1f}%</b>" for v in sub_df['Pourcentage']],
     textposition='outside'
 ))
 
-# Réglages du design (titres, axes, couleurs de fond)
+# Réglages du design
 fig.update_layout(
     title=dict(
         text="<b>Répartition des symptômes non moteurs (en % des patients)</b>",
-        x=0.5, font=dict(size=22, color='#2D3748')
+        x=0.5, font=dict(family=THEME['font_family'], size=22, color='#2D3748')
     ),
-    xaxis=dict(title="Pourcentage des patients (%)", range=[0, 100], gridcolor='#EDF2F7'),
-    
-    # Label de l'axe Y
+    xaxis=dict(title="Pourcentage des patients (%)", range=[0, 110], gridcolor=THEME['grid_color']),
     yaxis=dict(
         title="<b>Sous-Symptômes</b>", 
-        title_font=dict(size=14, color='#2D3748'),
-        tickfont=dict(size=11),
+        title_font=dict(family=THEME['font_family'], size=14, color='#2D3748'),
+        tickfont=dict(family=THEME['font_family'], size=11),
         automargin=True
     ),
-    
     template="plotly_white",
     height=950,
     margin=dict(l=220, r=80, t=100, b=80),
-    paper_bgcolor='#FFFDFB', # Fond blanc cassé
-    plot_bgcolor='#FFFDFB',
-    
-    # Style de la petite fenêtre au survol
+    paper_bgcolor=THEME['background_color'],
+    plot_bgcolor=THEME['background_color'],
     hoverlabel=dict(
-        bgcolor='#F0FFF4',
-        bordercolor='#48BB78',
+        bgcolor=THEME['label_background_color'],
+        bordercolor=THEME['bar_color'],
         font_size=13,
-        font_color="#2D3748",
+        font_family=THEME['font_family'],
         align="left"
     )
 )
 
-# Export final en HTML pour le mettre sur Git
+# Export en fichier HTML autonome
 fig.write_html(html_output, include_plotlyjs='cdn')
-print(f"Graphique généré avec succès dans : {html_output}")
+print(f"Graphique mis à jour avec le style Inter et tes couleurs : {html_output}")
