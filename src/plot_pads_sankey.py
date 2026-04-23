@@ -3,7 +3,19 @@ import json
 from collections import Counter
 from pathlib import Path
 
+import plotly.colors as pc
 import plotly.graph_objects as go
+
+THEME = {
+    "background_color": "#ffffff",
+    "font_family": "Inter, 'Segoe UI', system-ui, -apple-system, sans-serif",
+    "accent_font_family": "Inter, 'Segoe UI', system-ui, sans-serif",
+    "dark_color": "#2A2B2E",
+    "label_font_size": 14,
+    "title_font_size": 20,
+    "label_background_color": "#ffffff",
+    "colorscale": "Bluyl",
+}
 
 
 def normalize_condition(raw_value: str) -> str | None:
@@ -130,20 +142,24 @@ def build_sankey_data(path_values: dict):
         for i in range(len(sources))
     ]
 
-    # Colour palette keyed by node value (case-insensitive).
-    VALUE_COLORS = {
-        # Gender
-        "male":        "rgba(70,  130, 200, 0.90)",
-        "female":      "rgba(210,  90, 140, 0.90)",
-        # Condition
-        "healthy":     "rgba(60,  175,  90, 0.90)",
-        "parkinson's": "rgba(220,  90,  50, 0.90)",
-        # Kinship yes/no/unknown (shared across stages 3 & 4)
-        "yes":         "rgba(255, 180,  30, 0.90)",
-        "no":          "rgba(120,  80, 180, 0.90)",
-        "unknown":     "rgba(150, 150, 150, 0.90)",
-    }
-    DEFAULT_COLOR = "rgba(100, 100, 100, 0.85)"
+    # Sample 7 evenly-spaced colors from the theme colorscale and map to categories.
+    value_keys = ["male", "female", "healthy", "parkinson's", "yes", "no", "unknown"]
+    n = len(value_keys)
+    sampled_hex = pc.sample_colorscale(THEME["colorscale"], [i / (n - 1) for i in range(n)])
+
+    def hex_to_rgba(color: str, alpha: float) -> str:
+        color = color.strip()
+        if color.startswith("#"):
+            h = color.lstrip("#")
+            r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+        else:
+            # handles "rgb(r, g, b)" returned by sample_colorscale
+            parts = color[color.index("(") + 1 : color.index(")")].split(",")
+            r, g, b = int(float(parts[0])), int(float(parts[1])), int(float(parts[2]))
+        return f"rgba({r}, {g}, {b}, {alpha})"
+
+    VALUE_COLORS = {k: hex_to_rgba(sampled_hex[i], 0.90) for i, k in enumerate(value_keys)}
+    DEFAULT_COLOR = hex_to_rgba(sampled_hex[n // 2], 0.85)
 
     node_colors = []
     for lbl in new_labels:
@@ -171,7 +187,7 @@ def save_sankey(path_counts: Counter, output_image: Path, output_html: Path):
                 node=dict(
                     pad=18,
                     thickness=22,
-                    line=dict(color="rgba(60,60,60,0.45)", width=0.7),
+                    line=dict(color=THEME["dark_color"], width=0.7),
                     label=labels,
                     color=node_colors,
                 ),
@@ -188,12 +204,29 @@ def save_sankey(path_counts: Counter, output_image: Path, output_html: Path):
 
     fig.update_layout(
         autosize=True,
-        title=(
-            "PADS Sankey: "
-            "gender → condition → appearance_in_kinship → appearance_in_first_grade_kinship "
-            "(link thickness ∝ patient count)"
+        paper_bgcolor=THEME["background_color"],
+        plot_bgcolor=THEME["background_color"],
+        title=dict(
+            text=(
+                "PADS Sankey: "
+                "gender → condition → appearance_in_kinship → appearance_in_first_grade_kinship "
+                "(link thickness ∝ patient count)"
+            ),
+            font=dict(
+                family=THEME["font_family"],
+                size=THEME["title_font_size"],
+                color=THEME["dark_color"],
+            ),
         ),
-        font=dict(size=12),
+        font=dict(
+            family=THEME["font_family"],
+            size=THEME["label_font_size"],
+            color=THEME["dark_color"],
+        ),
+        hoverlabel=dict(
+            bgcolor=THEME["label_background_color"],
+            font=dict(family=THEME["accent_font_family"], color=THEME["dark_color"]),
+        ),
         height=690,
         margin=dict(l=180, r=180, t=60, b=20),
     )

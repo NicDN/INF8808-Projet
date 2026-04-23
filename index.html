@@ -6,19 +6,19 @@
   <title>INF8808 - Caractérisation démographique et symptômatique des patients atteints de la maladie de Parkinson</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --card: #111827;
-      --muted: #94a3b8;
-      --text: #e5e7eb;
-      --accent: #60a5fa;
-      --border: #334155;
+      --bg: #ffffff;
+      --card: #f5f7fa;
+      --muted: #5a5c61;
+      --text: #2A2B2E;
+      --accent: #1d6996;
+      --border: #e0e3e8;
     }
 
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.5;
@@ -59,7 +59,7 @@
     }
 
     .viz-label {
-      font-size: 0.75rem;
+      font-size: 14px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -69,14 +69,23 @@
 
     .viz-section h2 {
       margin: 0 0 8px 0;
-      font-size: 1.4rem;
+      font-size: 20px;
       color: var(--text);
     }
 
     .viz-section p {
       margin: 0 0 20px 0;
       color: var(--muted);
-      font-size: 1.1rem;
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 860px;
+    }
+
+    .viz-section ul {
+      margin: 0 0 20px 0;
+      padding-left: 24px;
+      color: var(--muted);
+      font-size: 14px;
       line-height: 1.7;
       max-width: 860px;
     }
@@ -85,15 +94,15 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
-      background: #fff;
+      background: #ffffff;
     }
-    
+
     .iframe-wrap iframe {
       display: block;
       width: 100%;
       border: none;
     }
-    
+
     footer {
       text-align: center;
       padding: 32px;
@@ -105,11 +114,11 @@
 <body>
   
   <header>
-    <h1>INF8808 - Caractérisation démographique et symptômatique des patients atteints de la maladie de Parkinson</h1>
+    <h1>Qui sont les personnes atteintes de la maladie de Parkinson ?</h1>
   </header>
   
   <section class="viz-section">
-    <p class="viz-label">Visualisation 1</p>
+    <p class="viz-label">Qui est le plus touché ? Analyse des tendances liées à l'âge, à la taille et au poids chez les personnes atteintes de la maladie de Parkinson</p>
     <h2>Carte thermique</h2>
     <p>Cette carte thermique permet de voir quelles sont les valeurs moyennes de taille et de poids de la plupart des patients à l'âge où leur diagnostic a été posé, et vérifier si certaines tranches d'âge ont tendance à être associées à une composition corporelle particulière.</p>
     <p>Il n'y a pas de preuve visuelle solide indiquant que les patients plus grands ou plus lourds soient diagnostiqués à un âge systématiquement différent ; la zone à haute densité ressemble davantage à un «bloc» qu'à une pente claire. En d'autres termes, au sein du groupe Parkinson, l'âge_au_diagnostic semble largement indépendant de la taille et du poids.
@@ -117,30 +126,51 @@
     <div class="iframe-wrap">
       <iframe src="visualizations/heatmap_interactive_beta_plotly.html" height="700"></iframe>
     </div>
+
+    <p><strong>Description détaillée :</strong></p>
+    <p>Signification des couleurs : jaune clair = peu ou pas de patients, bleu-vert plus foncé = davantage de patients.</p>
+    <p><strong>Healthy participants</strong></p>
+    <ul>
+      <li><strong>Weight vs Âge :</strong> la plupart des observations se situent entre 50-80 ans et 60-95 kg, avec quelques valeurs isolées plus élevées.</li>
+      <li><strong>Height vs Âge :</strong> forte concentration entre 160 et 185 cm sur la plupart des âges, avec peu de valeurs extrêmes.</li>
+    </ul>
+    <p><strong>Parkinson patients</strong></p>
+    <ul>
+      <li><strong>Weight vs Âge :</strong> concentration principale entre 50-70 ans et 70-105 kg, avec une densité plus marquée au centre.</li>
+      <li><strong>Height vs Âge :</strong> concentration surtout entre 160 et 190 cm et 45-75 ans, avec peu d'observations aux extrêmes.</li>
+    </ul>
   </section>
   
   <section class="viz-section">
-    <p class="viz-label">Visualisation 2</p>
+    <p class="viz-label">Les tremblements liés à la maladie de Parkinson: le côté dominant est-il plus touché ?</p>
     <h2>Diagramme circulaire</h2>
     <p>Ce diagramme circulaire montre la proportion de patients présentant des tremblements plus marqués du côté dominant par rapport au côté non dominant</p>
     <div class="iframe-wrap">
       <iframe src="visualizations/story_dominant_side_proportion_plotly.html" height="750"></iframe>
     </div>
+    <p><strong>Description détaillée :</strong></p>
+    <p>Diagramme circulaire chez les patients parkinsoniens : les tremblements les plus intenses touchent légèrement plus souvent la main non dominante (55,1 %) que la main dominante (44,9 %).</p>
   </section>
 
   <section class="viz-section">
-    <p class="viz-label">Visualisation 3</p>
+    <p class="viz-label">Parcours des participants - genre, condition et antécédents familiaux</p>
     <h2>Diagramme de Sankey</h2>
     <p>Le diagramme de Sankey illustre la distribution de 355 patients de l'ensemble de données à travers quatre caractéristiques enchaînées : le genre, le diagnostic (Parkinson’s ou en healty), la présence de la maladie dans la famille proche (appearance in kinship), et plus spécifiquement dans la famille au premier degré (appearance in first grade kinship). L'épaisseur de chaque flux est proportionnelle au nombre de patients empruntant ce chemin. Les pourcentages affichés sur chaque lien indiquent la fraction des patients du nœud source qui transitent vers le nœud cible.
 </p>
     <div class="iframe-wrap">
       <iframe src="visualizations/pads_sankey_gender_condition_kinship.html" height="750" title="PADS Sankey"></iframe>
     </div>
+    <p><strong>Description détaillée :</strong></p>
+    <ul>
+      <li>La majorité des participants sont des hommes (63 %) et des patients atteints de Parkinson (78 %).</li>
+      <li>La plupart ne rapportent pas d’antécédents familiaux (75 %) ou indiquent que l’information est inconnue (65 % en première génération).</li>
+      <li>Les cas confirmés d’apparition familiale restent minoritaires (environ 16 %).</li>
+    </ul>
   </section>
   
   <section class="viz-section">
-    <p class="viz-label">Visualisation 4</p>
-    <h2>Buage de points distribué (Beeswarm)</h2>
+    <p class="viz-label">Comment la sévérité du tremblement varie-t-elle selon le patient et la tâche ?</p>
+    <h2>Nuage de points distribué (Beeswarm)</h2>
     <p>Le graphique permet de comparer l’intensité relative des tremblements entre les patients Parkinsoniens et les sujets sains pour chacune des 11 tâches motrices étudiées. Pour chaque tâche, une analyse fréquentielle du signal permet de mesurer la proportion du mouvement total correspondant à des oscillations dans la bande de fréquence typique du tremblement Parkinsonien (environ 3 à 7 Hz).</p>
     <p>Les patients atteints de Parkinson présentent généralement des valeurs de tremblement plus élevées que les sujets contrôles dans plusieurs tâches motrices. De plus, la distribution des points montre que les patients Parkinsoniens présentent une variabilité importante des tremblements, ce qui suggère que la sévérité des symptômes moteurs peut varier considérablement selon les individus et selon la tâche réalisée.
 </p>
@@ -148,9 +178,34 @@
     <div class="iframe-wrap">
       <iframe src="visualizations/beeswarm_parkinson.html" height="960" title="Beeswarm Parkinson"></iframe>
     </div>
+
+    <p><strong>Description détaillée :</strong></p>
+    <ul>
+      <li>Beeswarm plot : chaque point représente un patient. Plus il est à droite, plus la part du tremblement est élevée.</li>
+      <li>Les sujets sains (bleu) se concentrent entre 20% et 50%, avec peu de variation selon la tâche.</li>
+      <li>Les patients Parkinson (orange) sont systématiquement plus à droite, entre 40% et 80%, et beaucoup plus dispersés — certains proches des sujets sains, d'autres avec des tremblements très intenses.</li>
+      <li>L'écart entre les deux groupes est le plus marqué lors des tâches de repos, où le tremblement caractéristique de la maladie de Parkinson est le plus visible.</li>
+    </ul>
   </section>
+
   <section class="viz-section">
-    <p class="viz-label">PRÉVALENCE DES SYMPTÔMES NON-MOTEURS PAR CATÉGORIE CLINIQUE</p>
+    <p class="viz-label">Est-ce que les syptômes moteurs s'aggravent avec l'âge ? Observe-t-on une différence entre les hommes et les femmes malades ?</p>
+    <h2>Scatter plots</h2>
+    <p>Cette visualisation permet d’analyser la relation entre l’âge et le genre des participants et la puissance du tremblement mesurée à partir des signaux d’accélération pour différentes tâches motrices.</p>
+    <p>On observe que les valeurs extrêmes apparaissent plus fréquemment chez les patients plus âgés, ce qui pourrait suggérer une tendance à l’augmentation de la sévérité des symptômes moteurs avec l’âge, bien qu’une forte variabilité interindividuelle reste présente.</p>
+    <div class="iframe-wrap">
+      <iframe src="visualizations/taux_tremblement_small_multiples.html" height="1020" title="Tremor Rate Small Multiples"></iframe>
+    </div>
+    <p><strong>Description détaillée :</strong></p>
+    <ul>
+      <li>Petits multiples de nuages de points : un nuage de points par type de tâches. Chaque nuage de points représente la part de tremblements dans le mouvement en fonction de l’âge du patient malade. De plus, une couleur est attribuée à chaque point qui encode le genre de la personne.</li>
+      <li>Les valeurs extrêmes dans la part de tremblements apparaissent plus fréquemment chez les patients plus âgés, ce qui pourrait suggérer une tendance à l’augmentation de la sévérité des symptômes moteurs avec l’âge, bien qu’une forte variabilité interindividuelle reste présente.</li>
+      <li>Aucune différence entre les hommes et les femmes n’est observée dans la sévérité des tremblements.</li>
+    </ul>
+  </section>
+
+  <section class="viz-section">
+    <p class="viz-label">Prévalence des symptômes non-moteurs par catégorie clinique</p>
     <h2>Bar chart</h2>
     <p>
       Cette visualisation permet d'analyser la répartition globale des troubles non-moteurs en regroupant
@@ -164,9 +219,18 @@
     <div class="iframe-wrap">
       <iframe src="visualizations/analyse_categories_interactif.html" height="720" title="Prévalence catégories"></iframe>
     </div>
+    <p><strong>Description détaillée :</strong></p>
+    <ul>
+      <li>Cette visualisation permet d'analyser la répartition globale des troubles non-moteurs en regroupant les symptômes par familles cliniques.</li>
+      <li>On observe une tendance générale où la majorité des catégories se maintient sous la barre des 40%, à l'exception notable de la sphère Urinaire.</li>
+      <li>Cette dernière s'impose comme un outlier statistique majeur avec une prévalence de 69,2%, soit le point culminant de l'étude et la seule catégorie à franchir le seuil critique de 50%.</li>
+      <li>À l'autre extrémité du spectre, les douleurs somatiques représentent la valeur minimale (21,3%), soulignant que l'impact de la maladie reste très hétérogène selon les systèmes biologiques touchés.</li>
+    </ul>
   </section>
+
+
   <section class="viz-section">
-    <p class="viz-label">HIÉRARCHIE ET FRÉQUENCE DES SYMPTÔMES SPÉCIFIQUES</p>
+    <p class="viz-label">Hiérarchie et fréquence des symptômes spécifiques</p>
     <h2>Bar chart</h2>
     <p>
       Ce graphique détaille la structure hiérarchique des symptômes en les classant par ordre décroissant de fréquence. 
@@ -178,27 +242,32 @@
     <div class="iframe-wrap">
       <iframe src="visualizations/analyse_symptomes_final.html" height="960" title="analyse symptome"></iframe>
     </div>
-  </section>
-  <section class="viz-section">
-    <p class="viz-label">Visualisation 7</p>
-    <h2>Scatter plots</h2>
-    <p>Cette visualisation permet d’analyser la relation entre l’âge et le genre des participants et la puissance du tremblement mesurée à partir des signaux d’accélération pour différentes tâches motrices.</p>
-    <p>On observe que les valeurs extrêmes apparaissent plus fréquemment chez les patients plus âgés, ce qui pourrait suggérer une tendance à l’augmentation de la sévérité des symptômes moteurs avec l’âge, bien qu’une forte variabilité interindividuelle reste présente.</p>
-    <div class="iframe-wrap">
-      <iframe src="visualizations/taux_tremblement_small_multiples.html" height="1020" title="Tremor Rate Small Multiples"></iframe>
-    </div>
+    <p><strong>Description détaillée :</strong></p>
+    <ul>
+      <li>Ce graphique détaille la structure hiérarchique des symptômes en les classant par ordre décroissant de fréquence.</li>
+      <li>La tendance met en lumière une prédominance écrasante des troubles liés à l'élimination et au sommeil, avec l'Urgence urinaire et la Nocturie qui atteignent des valeurs maximales proches de 70%.</li>
+      <li>À l'inverse, l'Incontinence fécale constitue la valeur minimale à seulement 5,2%, illustrant un contraste marqué entre les défis quotidiens quasi systématiques et les symptômes plus marginaux.</li>
+      <li>Cette hiérarchie révèle des disparités importantes, où les manifestations psychiatriques comme les délires restent des cas isolés par rapport à l'omniprésence des troubles fonctionnels.</li>
+    </ul>
   </section>
 
+
   <section class="viz-section wide">
-    <p class="viz-label">Visualisation 8</p>
+    <p class="viz-label">Profil des combinaisons de symptômes non-moteurs les plus fréquentes chez les patients parkinsoniens</p>
     <h2>Upset Plot</h2>
-    <p>Cette visualisation permet de représenter les combinaisons de symptômes non-moteurs les plus fréquentes chez les patients atteints de la maladie de Parkinson dans le dataset. 
-</p>
-    <p>On observe que les symptômes urinaires (Nocturia/Urgency) reviennent très souvent dans les combinaisons les plus fréquentes. À l’inverse, les combinaisons incluant un plus grand nombre de symptômes ou des symptômes moins communs présentent des fréquences plus faibles, mais restent tout de même présentes chez une proportion non négligeable de patients. Globalement, la tendance montre que les symptômes non-moteurs tendent à se regrouper en clusters relativement stables. 
-</p>
+    <p>
+      On observe que les combinaisons de symptômes non moteurs sont très fréquentes et restent élevées pour pratiquement toutes les catégories, avec une décroissance progressive sans baisse marquée. Presque chaque patient parkinsonien est exposé à au moins une combinaison, le plus souvent impliquant plusieurs catégories simultanément. Ainsi, les tendances montrent une atteinte multisystémique des patients et une charge symptomatique importante.
+    </p>
     <div class="iframe-wrap">
       <iframe src="visualizations/upset_plot.html" height="880" title="Upset Plot"></iframe>
     </div>
+    <p><strong>Description détaillée :</strong></p>
+    <ul>
+      <li>Cette visualisation illustre les combinaisons les plus fréquentes de catégories de symptômes non moteurs observées chez les patients atteints de la maladie de Parkinson.</li>
+      <li>La partie supérieure (barres verticales) indique le pourcentage de patients présentant chaque combinaison de symptômes. La partie inférieure (matrice de points) montre quelles catégories de symptômes composent chaque combinaison.</li>
+      <li>Pour ce qui est du code de couleur, un point bleu-vert foncé signifie que la catégorie de symptôme est présente dans la combinaison, tandis qu’un point jaune clair signifie que la catégorie est absente.</li>
+      <li>Lorsqu’on survole une barre, une info-bulle apparaît et affiche le pourcentage exact de patients présentant la combinaison de symptômes correspondante, ainsi que la répartition des symptômes non moteurs spécifiques associés à cette combinaison, exprimée en pourcentage.</li>
+    </ul>
   </section>
 
 </body>
